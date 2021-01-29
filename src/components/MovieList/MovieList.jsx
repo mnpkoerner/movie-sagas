@@ -1,11 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 import './MovieList.css'
 
 function MovieList() {
 
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
+
+    //to navigate to details page
+    const history = useHistory();
+
+    //GET movie from DB, routes to /details with movie info
+    const seeDetails = (id) => {
+        console.log('in getDetails with id:', id)
+        //sends id to saga for database query
+        dispatch({type: 'GET_DETAILS', payload: id})
+        
+        history.push('/details')
+    }
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
@@ -17,7 +30,13 @@ function MovieList() {
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} >
+                        <div
+                            key={movie.id}
+                            className="movieCard"
+                            //clicking anywhere on the movie div
+                            //routes you to the details page with
+                            //the specific movie's information
+                            onClick={()=>seeDetails(movie.id)}>
                             <h3>{movie.title}</h3>
                             <img src={movie.poster} alt={movie.title}/>
                         </div>

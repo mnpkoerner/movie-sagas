@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+router.get('/:id', (req, res) => {
+  const id = req.params.id;
+  console.log('in server with id:', id);
+  res.send(id)
+})
+
 router.get('/', (req, res) => {
 
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
@@ -28,7 +34,7 @@ router.post('/', (req, res) => {
   pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
     console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
-    
+
     const createdMovieId = result.rows[0].id
 
     // Now handle the genre reference
