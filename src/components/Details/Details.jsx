@@ -1,9 +1,18 @@
 import {useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 export default function Details() {
     //details has response from server with movie details
     const details = useSelector(store=>store.detailsReducer)
+    //genres has response from server with genres
     const genres = useSelector(store=>store.genres)
+
+    //to route back home
+    const history = useHistory()
+
+    const returnHome = () =>{
+        history.push('/')
+    }
 
     console.log('in details with clicked movie:', details)
     return (
@@ -24,6 +33,8 @@ export default function Details() {
                     <p key={genre.name}>{genre.name}</p>
                 )
             })}
+
+            <button onClick={()=>returnHome()}>Return Home</button>
         </>
 
     )
