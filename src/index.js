@@ -15,6 +15,7 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('GET_DETAILS', getDetails)
+    yield takeEvery('GET_GENRES', getGenres)
 }
 
 //gets details from DB for one movie
@@ -22,7 +23,7 @@ function* getDetails(action) {
     try{
         console.log('in getDetails saga for id:', action.payload);
         const response = yield axios.get(`/api/movie/${action.payload}`)
-        console.log('response from server:', response.data);
+        console.log('response from server for movie:', response.data);
         //this data will need to go do a reducer,
         //that reducer will be grabbed by the details page with useEffect
         //server get will query both tables
@@ -30,6 +31,22 @@ function* getDetails(action) {
     }catch(error) {
         console.log(error);
         alert('problem getting details')
+    }
+}
+
+//saga to get genres for movie display
+function* getGenres(action) {
+    try{
+        console.log('in getGenres saga for id:', action.payload);
+        const response = yield axios.get(`/api/movie/genre/${action.payload}`)
+        console.log('response from server for genre:', response.data);
+        //this data will need to go do a reducer,
+        //that reducer will be grabbed by the details page with useEffect
+        //server get will query both tables
+        yield put({type: 'SET_GENRES', payload: response.data})
+    }catch(error) {
+        console.log(error);
+        alert('problem getting genres')
     }
 }
 

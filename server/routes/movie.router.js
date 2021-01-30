@@ -2,12 +2,33 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+
+//gets movie by id
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   console.log('in server with id:', id);
   const queryText = `
     SELECT "movies".title, "movies".poster, "movies".description FROM "movies"
     WHERE "movies".id = $1;
+  `
+  pool.query(queryText, [id]).then((response)=>{
+    console.log(response);
+    res.send(response.rows)
+  }).catch((error)=>{
+    console.log(error);
+    res.sendStatus(500);
+  })
+})
+
+//gets genre by ID to match movie
+router.get('/genre/:id', (req, res) => {
+  const id = req.params.id;
+  console.log('in server with id:', id);
+  const queryText = `
+  SELECT "genres".name FROM "genres"
+  JOIN "movies_genres" ON "genres".id = "movies_genres".genre_id
+  JOIN "movies" ON "movies".id = "movies_genres".movie_id
+  WHERE "movies".id = $1;
   `
   pool.query(queryText, [id]).then((response)=>{
     console.log(response);

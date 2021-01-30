@@ -16,7 +16,8 @@ function MovieList() {
         console.log('in getDetails with id:', id)
         //sends id to saga for database query
         dispatch({type: 'GET_DETAILS', payload: id})
-        
+        dispatch({type: 'GET_GENRES', payload: id})
+
         history.push('/details')
     }
 
