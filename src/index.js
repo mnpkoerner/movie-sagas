@@ -50,7 +50,7 @@ function* fetchAllMovies() {
 const sagaMiddleware = createSagaMiddleware();
 
 //reducer to handle details for one movie
-const detailsReducer = (state = 0, action) => {
+const detailsReducer = (state = [], action) => {
     if(action.type === 'SEE_DETAILS') {
         return action.payload;
     }

@@ -30,7 +30,7 @@ For this weekend challenge you'll be expanding on a movie management application
 Genres can be applied to many different movies. Movies can have multiple genres. This is Many-to-Many! Junction Table time!
 
 We've given you the database complete with a junction table and data for `movies_genres`.
- 
+
 ### Movies
 We've added some movie posters in the `public/images` folder, and the database is set up to use them. If you want your own posters, you'll want to add the files there!
 
@@ -42,7 +42,7 @@ We've added some movie posters in the `public/images` folder, and the database i
 
 ### Home / List Page
 
-This view is completed already! It displays all of the movies in the movie database. 
+This view is completed already! It displays all of the movies in the movie database.
 
 - TODO: When a movie poster is clicked, a user should be brought to the `/details` view for that movie.
 - TODO: Have a way to get to the Add Movie Page
@@ -102,7 +102,7 @@ See the file: `/database/INSTRUCTIONS.md` for what to do to practice some fancy 
 
 ### Refresh on Details Page
 Allow the app to maintain on refresh our details page.
-Research [React Router URL PARAMS](https://reactrouter.com/web/example/url-params) 
+Research [React Router URL PARAMS](https://reactrouter.com/web/example/url-params)
 
 ### Edit Page (Stretch)
 Add to the detail page an edit button that brings the user to the edit page.
@@ -128,4 +128,4 @@ The edit page should have the buttons:
 - [ ] Allow the user to add a genre to a movie.
 - [ ] Allow the user to remove a genre from a movie.
 - [ ] Only display the top 10 movies, and allow the user to search for movie titles with a search bar on the home page (you can do this on the client side or the server side, server side is a bigger stretch, but good practice).
-- [ ] Create an `Admin` page. Add a link from the `Home` page to the `Admin` page. The page should initially display a login form (an input for username and an input for password). When the user enters the correct username (`camera`) and password (`action`), the page should display a form to add genres to the database, and a list of all of the genres with an `x` to remove them from the database. Note: This isn't actually secure, but it's pretty fun, and really good practice.
+- [ ] Create an `Admin` page. Add a link from the `Home` page to the `Admin` page. The page should initially display a login form (an input for username and an input for password). When the user enters the correct username (`camera`) and password (`action`), the page should display a form to add genres to the database, and a list of all of the genres with an `x` to remove them from the database. Note: This isn't actually secure, but it's pretty fun, and really good practice
