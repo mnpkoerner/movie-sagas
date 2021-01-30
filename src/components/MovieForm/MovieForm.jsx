@@ -38,6 +38,19 @@ export default function MovieForm() {
         }
     }
 
+    //submits post request for new movie
+    const postMovie = (event) => {
+        event.preventDefault()
+        console.log(newMovie)
+        setNewMovie({
+            title: '',
+            poster: '',
+            description: '',
+            genre: ''
+            })
+    }
+
+    //gets data for dropdown list
     useEffect(() => {
         dispatch({ type:'GENRE_DROPDOWN'});;
       }, []);
@@ -60,6 +73,7 @@ export default function MovieForm() {
                 maxLength="120"
                 onChange={(event)=>handleMovieChange('description', event)}
                 placeholder="a brief description of the movie"
+                value={newMovie.description}
                 ></textarea>
             <label htmlFor="genre">Genre</label>
             <select
@@ -67,27 +81,14 @@ export default function MovieForm() {
                 id="genre"
                 value={newMovie.genre}
                 onChange={(event)=>handleMovieChange('dropdown', event)}>
+                        <option value="" disabled>Chose the genre:</option>
                 {genreList.map((genre)=>{
                     return(
-                        <option value={genre.id}>{genre.name}</option>
+                        <option value={genre.id} key={genre.id}>{genre.name}</option>
                     )
                 })}
-                {/* <option value="" disabled>Select a genre:</option>
-                <option value="1">Adventure</option>
-                <option value="2">Adventure</option>
-                <option value="3">Adventure</option>
-                <option value="4">Adventure</option>
-                <option value="5">Adventure</option>
-                <option value="6">Adventure</option>
-                <option value="7">Adventure</option>
-                <option value="8">Adventure</option>
-                <option value="9">Adventure</option>
-                <option value="10">Adventure</option>
-                <option value="11">Adventure</option>
-                <option value="12">Adventure</option>
-                <option value="13">Adventure</option>
-                <option value="14">Adventure</option> */}
             </select>
+            <button onClick={(event)=>postMovie(event)}>Submit Your Movie</button>
 
         </form>
         </div>
