@@ -33,6 +33,12 @@ function MovieList() {
     return (
         <main>
             <h1>MovieList</h1>
+            <section>
+                <div>
+                    <p>Don't see what you're looking for?</p>
+                    <button onClick={() => handleClick(false)}>Add a Movie!</button>
+                </div>
+            </section>
 
             <section className="movies">
                 {movies.map(movie => {
@@ -49,12 +55,6 @@ function MovieList() {
                         </div>
                     );
                 })}
-            </section>
-            <section>
-                <div>
-                    <p>Don't see what you're looking for?</p>
-                    <button onClick={() => handleClick(false)}>Add a Movie!</button>
-                </div>
             </section>
         </main>
 
