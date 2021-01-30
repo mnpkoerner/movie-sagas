@@ -14,6 +14,40 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('GET_DETAILS', getDetails)
+    yield takeEvery('GET_GENRES', getGenres)
+}
+
+//gets details from DB for one movie
+function* getDetails(action) {
+    try{
+        console.log('in getDetails saga for id:', action.payload);
+        const response = yield axios.get(`/api/movie/${action.payload}`)
+        console.log('response from server for movie:', response.data);
+        //this data will need to go do a reducer,
+        //that reducer will be grabbed by the details page with useEffect
+        //server get will query both tables
+        yield put({type: 'SEE_DETAILS', payload: response.data})
+    }catch(error) {
+        console.log(error);
+        alert('problem getting details')
+    }
+}
+
+//saga to get genres for movie display
+function* getGenres(action) {
+    try{
+        console.log('in getGenres saga for id:', action.payload);
+        const response = yield axios.get(`/api/movie/genre/${action.payload}`)
+        console.log('response from server for genre:', response.data);
+        //this data will need to go do a reducer,
+        //that reducer will be grabbed by the details page with useEffect
+        //server get will query both tables
+        yield put({type: 'SET_GENRES', payload: response.data})
+    }catch(error) {
+        console.log(error);
+        alert('problem getting genres')
+    }
 }
 
 function* fetchAllMovies() {
@@ -26,11 +60,19 @@ function* fetchAllMovies() {
     } catch {
         console.log('get all error');
     }
-        
+
 }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
+
+//reducer to handle details for one movie
+const detailsReducer = (state = [], action) => {
+    if(action.type === 'SEE_DETAILS') {
+        return action.payload;
+    }
+    return state;
+}
 
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
@@ -55,6 +97,7 @@ const genres = (state = [], action) => {
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
+        detailsReducer,
         movies,
         genres,
     }),
