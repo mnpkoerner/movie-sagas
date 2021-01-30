@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 export default function MovieForm() {
 
@@ -9,12 +10,15 @@ export default function MovieForm() {
     //dispatch for genre list
     const dispatch = useDispatch();
 
+    //history for routing
+    const history = useHistory();
+
     //local state for creating new movie to post
     const [newMovie, setNewMovie] = useState({
                                             title: '',
                                             poster: '',
                                             description: '',
-                                            genre: ''
+                                            genre_id: ''
                                             })
 
     //updates state from user input
@@ -31,23 +35,32 @@ export default function MovieForm() {
                 setNewMovie({...newMovie, description: event.target.value})
                 break;
             case 'dropdown':
-                setNewMovie({...newMovie, genre: event.target.value})
+                setNewMovie({...newMovie, genre_id: event.target.value})
                 break;
             default:
                 console.log('something went wrong')
         }
     }
 
-    //submits post request for new movie
-    const postMovie = (event) => {
+    //sends user to home page, submits or doesn't depending on button
+    const newMovieReady = (ready, event) => {
         event.preventDefault()
-        console.log(newMovie)
+
+        if(ready){
+        dispatch({type:'POST_MOVIE', payload: newMovie})
         setNewMovie({
             title: '',
             poster: '',
             description: '',
-            genre: ''
+            genre_id: ''
             })
+
+            history.push('/')
+        }
+
+        if(!ready){
+            history.push('/')
+        }
     }
 
     //gets data for dropdown list
@@ -88,7 +101,8 @@ export default function MovieForm() {
                     )
                 })}
             </select>
-            <button onClick={(event)=>postMovie(event)}>Submit Your Movie</button>
+            <button onClick={(event)=>newMovieReady(false, event)}>Return Home</button>
+            <button onClick={(event)=>newMovieReady(true, event)}>Submit</button>
 
         </form>
         </div>
