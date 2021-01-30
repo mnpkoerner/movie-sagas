@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 export default function MovieForm() {
 
@@ -9,12 +10,15 @@ export default function MovieForm() {
     //dispatch for genre list
     const dispatch = useDispatch();
 
+    //history for routing
+    const history = useHistory();
+
     //local state for creating new movie to post
     const [newMovie, setNewMovie] = useState({
                                             title: '',
                                             poster: '',
                                             description: '',
-                                            genre: ''
+                                            genre_id: ''
                                             })
 
     //updates state from user input
@@ -31,13 +35,35 @@ export default function MovieForm() {
                 setNewMovie({...newMovie, description: event.target.value})
                 break;
             case 'dropdown':
-                setNewMovie({...newMovie, genre: event.target.value})
+                setNewMovie({...newMovie, genre_id: event.target.value})
                 break;
             default:
                 console.log('something went wrong')
         }
     }
 
+    //sends user to home page, submits or doesn't depending on button
+    const newMovieReady = (ready, event) => {
+        event.preventDefault()
+
+        if(ready){
+        dispatch({type:'POST_MOVIE', payload: newMovie})
+        setNewMovie({
+            title: '',
+            poster: '',
+            description: '',
+            genre_id: ''
+            })
+
+            history.push('/')
+        }
+
+        if(!ready){
+            history.push('/')
+        }
+    }
+
+    //gets data for dropdown list
     useEffect(() => {
         dispatch({ type:'GENRE_DROPDOWN'});;
       }, []);
@@ -60,6 +86,7 @@ export default function MovieForm() {
                 maxLength="120"
                 onChange={(event)=>handleMovieChange('description', event)}
                 placeholder="a brief description of the movie"
+                value={newMovie.description}
                 ></textarea>
             <label htmlFor="genre">Genre</label>
             <select
@@ -67,27 +94,15 @@ export default function MovieForm() {
                 id="genre"
                 value={newMovie.genre}
                 onChange={(event)=>handleMovieChange('dropdown', event)}>
+                        <option value="" disabled>Chose the genre:</option>
                 {genreList.map((genre)=>{
                     return(
-                        <option value={genre.id}>{genre.name}</option>
+                        <option value={genre.id} key={genre.id}>{genre.name}</option>
                     )
                 })}
-                {/* <option value="" disabled>Select a genre:</option>
-                <option value="1">Adventure</option>
-                <option value="2">Adventure</option>
-                <option value="3">Adventure</option>
-                <option value="4">Adventure</option>
-                <option value="5">Adventure</option>
-                <option value="6">Adventure</option>
-                <option value="7">Adventure</option>
-                <option value="8">Adventure</option>
-                <option value="9">Adventure</option>
-                <option value="10">Adventure</option>
-                <option value="11">Adventure</option>
-                <option value="12">Adventure</option>
-                <option value="13">Adventure</option>
-                <option value="14">Adventure</option> */}
             </select>
+            <button onClick={(event)=>newMovieReady(false, event)}>Return Home</button>
+            <button onClick={(event)=>newMovieReady(true, event)}>Submit</button>
 
         </form>
         </div>

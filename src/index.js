@@ -17,6 +17,19 @@ function* rootSaga() {
     yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('GET_GENRES', getGenres);
     yield takeEvery('GENRE_DROPDOWN', getGenreDropdown)
+    yield takeEvery('POST_MOVIE', postMovie)
+}
+
+//posts new movie to DB
+function* postMovie(action){
+    try{
+    console.log('in postMovie');
+    const response = yield axios.post('/api/movie', action.payload);
+    console.log(response);
+    // yield put({type: 'FETCH_MOVIES'})
+    }catch(error){
+        console.log('problem posting', error)
+    }
 }
 
 //gets all genres for dropdown
