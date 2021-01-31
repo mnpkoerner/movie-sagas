@@ -70,7 +70,8 @@ export default function MovieForm() {
     return(
         <div>
         <h3>Add a new movie to the database</h3>
-        <form>
+        <form className="movieForm">
+            <div className="textInput">
             <input
                 type="text"
                 placeholder="title"
@@ -81,6 +82,8 @@ export default function MovieForm() {
                 placeholder="poster url"
                 onChange={(event)=>handleMovieChange('poster', event)}
                 value={newMovie.poster} />
+                </div>
+                <div className="descriptionInput">
             <textarea
                 type="text"
                 maxLength="120"
@@ -101,9 +104,11 @@ export default function MovieForm() {
                     )
                 })}
             </select>
+            </div>
+            <div className="buttonPanel">
             <button onClick={(event)=>newMovieReady(false, event)}>Return Home</button>
             <button onClick={(event)=>newMovieReady(true, event)}>Submit</button>
-
+            </div>
         </form>
         </div>
     )
