@@ -22,13 +22,34 @@
   display: flex;
   justify-content: space-around;
 }
+.buttonPanel{
+  width: 30%;
+  margin: auto;
+}
+.movieForm {
+  width: 50%;
+  margin: auto;
+}
+.textInput{
+  
+}
+.descriptionInput{
 
+}
 .movieCard{
-  width: 20%;
-  height: 350px;
+  width: 17%;
+  height: 400px;
   background-color: lightgray;
   margin: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
+.movieCard:hover{
+  box-shadow: 5px 5px 5px grey;
+  transition: .2s;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

@@ -25,7 +25,7 @@ function MovieList() {
             history.push('/details')
         }
     }
-
+    //populates dom with movies from db
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
@@ -35,6 +35,7 @@ function MovieList() {
             <h1>MovieList</h1>
             <section>
                 <div>
+                    {/* button to send add movie page */}
                     <p>Don't see what you're looking for?</p>
                     <button onClick={() => handleClick(false)}>Add a Movie!</button>
                 </div>
@@ -50,7 +51,7 @@ function MovieList() {
                             //routes you to the details page with
                             //the specific movie's information
                             onClick={() => handleClick(movie.id)}>
-                            <h3>{movie.title}</h3>
+                            <h4>{movie.title}</h4>
                             <img src={movie.poster} alt={movie.title} />
                         </div>
                     );
