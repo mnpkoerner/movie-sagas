@@ -1,5 +1,7 @@
 import {useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 export default function Details() {
     //details has response from server with movie details
@@ -28,13 +30,19 @@ export default function Details() {
                 )
 
             })}
+            <h3>Great for fans of the genres:</h3>
             {genres.map((genre)=>{
                 return(
                     <p key={genre.name}>{genre.name}</p>
                 )
             })}
 
-            <button onClick={()=>returnHome()}>Return Home</button>
+            <Button
+            variant="contained"
+            color="primary"
+            startIcon={<KeyboardArrowLeftIcon/>}
+            onClick={()=>returnHome()}>
+                Return Home</Button>
         </>
 
     )

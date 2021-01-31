@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 
 export default function MovieForm() {
 
@@ -72,26 +75,37 @@ export default function MovieForm() {
         <h3>Add a new movie to the database</h3>
         <form className="movieForm">
             <div className="textInput">
+            <label htmlFor="title">Title:</label>
             <input
+                name="title"
+                id="title"
                 type="text"
                 placeholder="title"
                 onChange={(event)=>handleMovieChange('title', event)}
                 value={newMovie.title} />
+            <label htmlFor="posterURL">Poster URL:</label>
             <input
+                name="posterURL"
+                id="posterURL"
                 type="text"
                 placeholder="poster url"
                 onChange={(event)=>handleMovieChange('poster', event)}
                 value={newMovie.poster} />
                 </div>
                 <div className="descriptionInput">
+            <label htmlFor="description">Description:</label>
             <textarea
+                name="description"
+                id="description"
                 type="text"
+                rows="4"
+                cols="45"
                 maxLength="120"
                 onChange={(event)=>handleMovieChange('description', event)}
                 placeholder="a brief description of the movie"
                 value={newMovie.description}
                 ></textarea>
-            <label htmlFor="genre">Genre</label>
+            <label htmlFor="genre">Genre:</label>
             <select
                 name="genre"
                 id="genre"
@@ -106,8 +120,20 @@ export default function MovieForm() {
             </select>
             </div>
             <div className="buttonPanel">
-            <button onClick={(event)=>newMovieReady(false, event)}>Return Home</button>
-            <button onClick={(event)=>newMovieReady(true, event)}>Submit</button>
+            <Button
+                variant="contained"
+                color="primary"
+                startIcon={<KeyboardArrowLeftIcon/>}
+                onClick={(event)=>newMovieReady(false, event)}>
+                Return Home
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                endIcon={<DoubleArrowIcon/>}
+                onClick={(event)=>newMovieReady(true, event)}>
+                Submit
+            </Button>
             </div>
         </form>
         </div>

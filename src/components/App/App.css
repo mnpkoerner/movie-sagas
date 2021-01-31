@@ -1,11 +1,37 @@
 .App {
   text-align: center;
+
+}
+
+.movieForm{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  background-color: #b0bec5;
+  padding: 15px;
+  border-radius: 15px;;
+}
+.textInput{
+  display: flex;
+  justify-content: space-around;
+  padding: 20px
+}
+.descriptionInput{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px
+}
+textarea{
+  padding: 10px;
+  margin: 10px;
 }
 
 
-.App-header {
-  background-color: #222;
-  height: 150px;
+.movieHeader {
+  background-color: #d32f2f;
+  height: 70px;
   padding: 20px;
   color: white;
 }
@@ -23,23 +49,20 @@
   justify-content: space-around;
 }
 .buttonPanel{
-  width: 30%;
-  margin: auto;
-}
-.movieForm {
   width: 50%;
   margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
-.textInput{
-  
-}
-.descriptionInput{
 
+.poster{
+  height: 350px;
+  width: auto;
 }
 .movieCard{
   width: 17%;
   height: 400px;
-  background-color: lightgray;
+  background-color: #b0bec5;
   margin: 15px;
   border-radius: 10px;
   display: flex;

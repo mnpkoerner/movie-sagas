@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 import './MovieList.css'
 
@@ -32,12 +34,16 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
             <section>
-                <div>
+                <div className="addMovieNav">
                     {/* button to send add movie page */}
                     <p>Don't see what you're looking for?</p>
-                    <button onClick={() => handleClick(false)}>Add a Movie!</button>
+                    <Button
+                    variant="contained"
+                    endIcon={<DoubleArrowIcon />}
+                    color="primary"
+                    onClick={() => handleClick(false)}>
+                    Add a Movie!</Button>
                 </div>
             </section>
 
@@ -52,7 +58,7 @@ function MovieList() {
                             //the specific movie's information
                             onClick={() => handleClick(movie.id)}>
                             <h4>{movie.title}</h4>
-                            <img src={movie.poster} alt={movie.title} />
+                            <img src={movie.poster} alt={movie.title} className="poster"/>
                         </div>
                     );
                 })}
